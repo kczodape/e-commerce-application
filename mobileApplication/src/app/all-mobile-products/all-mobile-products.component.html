@@ -1,0 +1,68 @@
+<div class="searchselectadd">
+  <form class="example-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        #searchInput
+        maxlength="25"
+        (input)="searchProducts(searchInput.value)"
+      />
+      <mat-hint align="end">{{ searchInput.value.length }} / 25</mat-hint>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </form>
+  <div class="selectadd">
+    <mat-form-field class="select">
+      <mat-label>State</mat-label>
+      <mat-select>
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let state of states" [value]="state">{{
+          state
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="addbtn" (click)="openAddProductDialog()">Add</button>
+  </div>
+</div>
+
+<mat-paginator
+  [length]="filteredProducts.length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageOptions"
+  (page)="onPageChange($event)"
+></mat-paginator>
+<div class="allmobileproducts">
+  <mat-card
+    class="example-card"
+    *ngFor="
+      let product of dataSource.data
+        | slice : pageNumber * pageSize : (pageNumber + 1) * pageSize
+    "
+  >
+    <mat-card-header>
+      <span>{{ product.title }}</span>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="viewProductDetails(product.id)"
+      >
+        View
+      </button>
+    </mat-card-header>
+    <img mat-card-image [src]="product.thumbnail" alt="mobile photo" />
+    <mat-card-content>
+      <p>{{ product.description | wordlimitpipe : 10 }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="updatedelete">
+        <button mat-stroked-button color="primary" class="udate">Update</button>
+        <button mat-raised-button color="warn">Delete</button>
+      </div>
+      <div class="rupeerating">
+        <p class="rupee">&#8377; {{ product.price }}</p>
+        <p>{{ product.rating }}/5</p>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,23 @@
+img{
+    height: 150px;
+}
+mat-tab-group{
+    margin-left: auto;
+    margin-right: auto;
+}
+.dialog{
+    h2, h3{
+        text-align: center;
+    }
+    padding: 25px;
+    .para{
+       display: flex; 
+       justify-content: space-between;
+       span{
+        color: blue;
+       }
+    }
+    .desc{
+        text-align: center;
+    }
+}

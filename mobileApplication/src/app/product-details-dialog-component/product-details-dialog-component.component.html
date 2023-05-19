@@ -1,0 +1,19 @@
+<div class="dialog">
+  <h2>{{ product.brand }} - {{ product.category }}</h2>
+  <div class="para">
+    <p>Discount Percentage: <span>{{ product.discountPercentage }}%</span></p>
+    <p>Stock: <span>{{ product.stock }}</span></p>
+  </div>
+  <div class="para">
+    <p>Price: <span>&#8377; {{ product.price }}</span></p>
+    <p>Rating: <span>{{ product.rating }}/5</span></p>
+  </div>
+  <p class="desc">{{ product.description }}</p>
+
+  <h3>More Images</h3>
+  <mat-tab-group>
+    <mat-tab [label]="image" *ngFor="let image of product.images">
+      <img [src]="image" alt="Product Image" />
+    </mat-tab>
+  </mat-tab-group>
+</div>
