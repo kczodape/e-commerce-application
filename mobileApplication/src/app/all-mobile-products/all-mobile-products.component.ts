@@ -42,13 +42,14 @@ export class AllMobileProductsComponent implements OnInit {
       data: product,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+    dialogRef.afterClosed().subscribe((updatedProduct) => {
+      if (updatedProduct) {
         // Update the corresponding product data in the dataSource
-        const index = this.dataSource.data.findIndex((p) => p.id === result.id);
+        const index = this.filteredProducts.findIndex((p) => p.id === updatedProduct.id);
         if (index !== -1) {
-          this.dataSource.data[index] = result;
-          this.dataSource._updateChangeSubscription();
+          this.filteredProducts[index] = updatedProduct;
+        this.dataSource.data = this.filteredProducts;
+        this.updatePagedProducts();
         }
       }
     });
@@ -159,7 +160,6 @@ export class AllMobileProductsComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.updatePagedProducts();
         console.log(this.mobileProducts);
-        
       },
       (error: any) => {
         console.error('Error fetching mobile products:', error);
@@ -217,6 +217,10 @@ export class AllMobileProductsComponent implements OnInit {
         console.error('Error fetching product details:', error);
       }
     );
+    const product = this.filteredProducts.find((p) => p.id === productId);
+    if (product) {
+      this.openProductDetailsDialog(product);
+    }
   }
 
   onPageChange(event: PageEvent) {
