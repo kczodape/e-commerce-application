@@ -14,11 +14,11 @@
   </form>
   <div class="selectadd">
     <mat-form-field class="select">
-      <mat-label>State</mat-label>
-      <mat-select>
+      <mat-label>Category</mat-label>
+      <mat-select (selectionChange)="onCategorySelected($event.value)">
         <mat-option>None</mat-option>
-        <mat-option *ngFor="let state of states" [value]="state">{{
-          state
+        <mat-option *ngFor="let category of categories" [value]="category">{{
+          category
         }}</mat-option>
       </mat-select>
     </mat-form-field>

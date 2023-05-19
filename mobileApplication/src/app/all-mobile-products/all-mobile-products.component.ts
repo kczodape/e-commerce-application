@@ -13,31 +13,10 @@ import { AddProductDialogComponent } from '../add-product-dialog/add-product-dia
   styleUrls: ['./all-mobile-products.component.scss'],
 })
 export class AllMobileProductsComponent implements OnInit {
-  
-  states: string[] = [
-    "smartphones",
-  "laptops",
-  "fragrances",
-  "skincare",
-  "groceries",
-  "home-decoration",
-  "furniture",
-  "tops",
-  "womens-dresses",
-  "womens-shoes",
-  "mens-shirts",
-  "mens-shoes",
-  "mens-watches",
-  "womens-watches",
-  "womens-bags",
-  "womens-jewellery",
-  "sunglasses",
-  "automotive",
-  "motorcycle",
-  "lighting"
-  ];
-  
-  // Code for pagination 
+
+  categories: string[] = [];
+
+  // Code for pagination
   mobileProducts: any[] = [];
   filteredProducts: any[] = [];
   pagedProducts: any[] = [];
@@ -52,7 +31,35 @@ export class AllMobileProductsComponent implements OnInit {
 
   ngOnInit() {
     this.fetchMobileProducts();
+
+    this.fetchProductCategories(); // Fetch product categories
   }
+
+  // Fetch product categories
+  fetchProductCategories() {
+    this.http.get<string[]>('https://dummyjson.com/products/categories').subscribe(
+      (data) => {
+        this.categories = data;
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+      }
+    );
+  }
+
+    // Function triggered when a category is selected
+    onCategorySelected(category: string) {
+      if (category === 'None') {
+        // If 'None' is selected, display all products
+        this.filteredProducts = this.mobileProducts;
+      } else {
+        // Filter products by selected category
+        this.filteredProducts = this.mobileProducts.filter((product) => product.category === category);
+      }
+  
+      this.dataSource.data = this.filteredProducts;
+      this.updatePagedProducts();
+    }
 
   openAddProductDialog() {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
@@ -103,7 +110,7 @@ export class AllMobileProductsComponent implements OnInit {
       this.updatePagedProducts();
     }
   }
-updatePagedProducts() {
+  updatePagedProducts() {
     const startIndex = this.pageNumber * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.pagedProducts = this.filteredProducts.slice(startIndex, endIndex);
@@ -115,7 +122,6 @@ updatePagedProducts() {
       data: product,
     });
   }
-
 
   viewProductDetails(productId: number) {
     this.http.get<any>('https://dummyjson.com/products/' + productId).subscribe(
