@@ -2,52 +2,91 @@
 <div mat-dialog-content class="form">
   <mat-form-field>
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="newProduct.title" placeholder="Enter title">
+    <input matInput [(ngModel)]="newProduct.title" placeholder="Enter title" />
   </mat-form-field>
-  
+
   <mat-form-field>
     <mat-label>Description</mat-label>
-    <textarea matInput [(ngModel)]="newProduct.description" placeholder="Enter description"></textarea>
+    <textarea
+      matInput
+      [(ngModel)]="newProduct.description"
+      placeholder="Enter description"
+    ></textarea>
   </mat-form-field>
-  
+
   <mat-form-field>
     <mat-label>Price</mat-label>
-    <input matInput type="number" [(ngModel)]="newProduct.price" placeholder="Enter price">
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="newProduct.price"
+      placeholder="Enter price"
+    />
   </mat-form-field>
-  
+
   <mat-form-field>
     <mat-label>Discount Percentage</mat-label>
-    <input matInput type="number" [(ngModel)]="newProduct.discountPercentage" placeholder="Enter discount percentage">
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="newProduct.discountPercentage"
+      placeholder="Enter discount percentage"
+    />
   </mat-form-field>
-  
+
   <mat-form-field>
     <mat-label>Rating</mat-label>
-    <input matInput type="number" [(ngModel)]="newProduct.rating" placeholder="Enter rating">
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="newProduct.rating"
+      placeholder="Enter rating"
+    />
   </mat-form-field>
-  
+
   <mat-form-field>
     <mat-label>Stock</mat-label>
-    <input matInput type="number" [(ngModel)]="newProduct.stock" placeholder="Enter stock">
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="newProduct.stock"
+      placeholder="Enter stock"
+    />
   </mat-form-field>
-  
+
   <mat-form-field>
     <mat-label>Brand</mat-label>
-    <input matInput [(ngModel)]="newProduct.brand" placeholder="Enter brand">
+    <input matInput [(ngModel)]="newProduct.brand" placeholder="Enter brand" />
   </mat-form-field>
-  
+
   <mat-form-field>
     <mat-label>Category</mat-label>
-    <input matInput [(ngModel)]="newProduct.category" placeholder="Enter category">
+    <input
+      matInput
+      [(ngModel)]="newProduct.category"
+      placeholder="Enter category"
+    />
   </mat-form-field>
-  
+
   <mat-form-field>
     <mat-label>Thumbnail URL</mat-label>
-    <input matInput [(ngModel)]="newProduct.thumbnail" placeholder="Enter thumbnail URL">
+    <input
+      matInput
+      [(ngModel)]="newProduct.thumbnail"
+      placeholder="Enter thumbnail URL"
+    />
   </mat-form-field>
-  
+
   <!-- Add more fields here -->
 </div>
 <div mat-dialog-actions align="end">
-  <button mat-stroked-button color="primary" color="primary" (click)="addProduct()">Add</button>
+  <button
+    mat-stroked-button
+    color="primary"
+    color="primary"
+    (click)="addProduct()"
+  >
+    Add
+  </button>
   <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
 </div>

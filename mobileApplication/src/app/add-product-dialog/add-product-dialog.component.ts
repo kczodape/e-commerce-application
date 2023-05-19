@@ -20,11 +20,15 @@ export class AddProductDialogComponent {
     this.dialogRef.close();
   }
   addProduct(): void {
-    this.http.post('https://dummyjson.com/products/add', this.newProduct)
-      .subscribe((response: any) => {
-        this.dialogRef.close(response);
-      }, (error: any) => {
-        console.error(error);
-      });
+    this.http
+      .post('https://dummyjson.com/products/add', this.newProduct)
+      .subscribe(
+        (response: any) => {
+          this.dialogRef.close(response);
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
   }
 }

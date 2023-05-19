@@ -57,28 +57,6 @@ export class AllMobileProductsComponent implements OnInit {
     });
   }
 
-  // Function to update a product
-  //  updateProduct(updatedProduct: any) {
-  //   const updateUrl = `https://dummyjson.com/products/${updatedProduct.id}`;
-
-  //   this.http.put(updateUrl, updatedProduct, { headers: { 'Content-Type': 'application/json' } }).subscribe(
-  //     () => {
-  //       // Update the product details in the filtered products array
-  //       this.filteredProducts = this.filteredProducts.map((product) =>
-  //         product.id === updatedProduct.id ? updatedProduct : product
-  //       );
-
-  //       // Update the table data source
-  //       this.dataSource.data = this.filteredProducts;
-
-  //       console.log('Product updated successfully.');
-  //     },
-  //     (error) => {
-  //       console.error('Error updating product:', error);
-  //     }
-  //   );
-  // }
-
   // Fetch product categories
   fetchProductCategories() {
     this.http
