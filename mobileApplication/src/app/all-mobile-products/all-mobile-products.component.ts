@@ -45,11 +45,13 @@ export class AllMobileProductsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((updatedProduct) => {
       if (updatedProduct) {
         // Update the corresponding product data in the dataSource
-        const index = this.filteredProducts.findIndex((p) => p.id === updatedProduct.id);
+        const index = this.filteredProducts.findIndex(
+          (p) => p.id === updatedProduct.id
+        );
         if (index !== -1) {
           this.filteredProducts[index] = updatedProduct;
-        this.dataSource.data = this.filteredProducts;
-        this.updatePagedProducts();
+          this.dataSource.data = this.filteredProducts;
+          this.updatePagedProducts();
         }
       }
     });
@@ -147,6 +149,12 @@ export class AllMobileProductsComponent implements OnInit {
           console.error('Error deleting product:', error);
         }
       );
+    }
+    const index = this.filteredProducts.findIndex((p) => p.id === productId);
+    if (index !== -1) {
+      this.filteredProducts.splice(index, 1);
+      this.dataSource.data = this.filteredProducts;
+      this.updatePagedProducts();
     }
   }
 
