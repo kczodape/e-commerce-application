@@ -1,23 +1,26 @@
-img{
-    height: 150px;
+img {
+  height: 150px;
 }
-mat-tab-group{
-    margin-left: auto;
-    margin-right: auto;
+mat-tab-group {
+  margin-left: auto;
+  margin-right: auto;
 }
-.dialog{
-    h2, h3{
-        text-align: center;
+.dialog {
+  h2,h3 {
+    padding-bottom: 10px;
+    border-bottom: 2px solid darkblue;
+    color: darkcyan;
+    text-align: center;
+  }
+  padding: 25px;
+  .para {
+    display: flex;
+    justify-content: space-between;
+    span {
+      color: darkcyan;
     }
-    padding: 25px;
-    .para{
-       display: flex; 
-       justify-content: space-between;
-       span{
-        color: blue;
-       }
-    }
-    .desc{
-        text-align: center;
-    }
+  }
+  .desc {
+    text-align: center;
+  }
 }

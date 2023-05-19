@@ -6,6 +6,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import { ProductDetailsDialogComponentComponent } from '../product-details-dialog-component/product-details-dialog-component.component';
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
+import { UpdateProductDialogComponent } from '../update-product-dialog/update-product-dialog.component';
 
 @Component({
   selector: 'app-all-mobile-products',
@@ -13,7 +14,6 @@ import { AddProductDialogComponent } from '../add-product-dialog/add-product-dia
   styleUrls: ['./all-mobile-products.component.scss'],
 })
 export class AllMobileProductsComponent implements OnInit {
-
   categories: string[] = [];
 
   // Code for pagination
@@ -35,31 +35,76 @@ export class AllMobileProductsComponent implements OnInit {
     this.fetchProductCategories(); // Fetch product categories
   }
 
-  // Fetch product categories
-  fetchProductCategories() {
-    this.http.get<string[]>('https://dummyjson.com/products/categories').subscribe(
-      (data) => {
-        this.categories = data;
-      },
-      (error) => {
-        console.error('Error fetching categories:', error);
+  // Function to open the update dialog
+  openUpdateDialog(product: any) {
+    const dialogRef = this.dialog.open(UpdateProductDialogComponent, {
+      width: '800px',
+      data: product,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Update the corresponding product data in the dataSource
+        const index = this.dataSource.data.findIndex((p) => p.id === result.id);
+        if (index !== -1) {
+          this.dataSource.data[index] = result;
+          this.dataSource._updateChangeSubscription();
+        }
       }
-    );
+    });
   }
 
-    // Function triggered when a category is selected
-    onCategorySelected(category: string) {
-      if (category === 'None') {
-        // If 'None' is selected, display all products
-        this.filteredProducts = this.mobileProducts;
-      } else {
-        // Filter products by selected category
-        this.filteredProducts = this.mobileProducts.filter((product) => product.category === category);
-      }
-  
-      this.dataSource.data = this.filteredProducts;
-      this.updatePagedProducts();
+  // Function to update a product
+  //  updateProduct(updatedProduct: any) {
+  //   const updateUrl = `https://dummyjson.com/products/${updatedProduct.id}`;
+
+  //   this.http.put(updateUrl, updatedProduct, { headers: { 'Content-Type': 'application/json' } }).subscribe(
+  //     () => {
+  //       // Update the product details in the filtered products array
+  //       this.filteredProducts = this.filteredProducts.map((product) =>
+  //         product.id === updatedProduct.id ? updatedProduct : product
+  //       );
+
+  //       // Update the table data source
+  //       this.dataSource.data = this.filteredProducts;
+
+  //       console.log('Product updated successfully.');
+  //     },
+  //     (error) => {
+  //       console.error('Error updating product:', error);
+  //     }
+  //   );
+  // }
+
+  // Fetch product categories
+  fetchProductCategories() {
+    this.http
+      .get<string[]>('https://dummyjson.com/products/categories')
+      .subscribe(
+        (data) => {
+          this.categories = data;
+        },
+        (error) => {
+          console.error('Error fetching categories:', error);
+        }
+      );
+  }
+
+  // Function triggered when a category is selected
+  onCategorySelected(category: string) {
+    if (category === 'None') {
+      // If 'None' is selected, display all products
+      this.filteredProducts = this.mobileProducts;
+    } else {
+      // Filter products by selected category
+      this.filteredProducts = this.mobileProducts.filter(
+        (product) => product.category === category
+      );
     }
+
+    this.dataSource.data = this.filteredProducts;
+    this.updatePagedProducts();
+  }
 
   openAddProductDialog() {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
@@ -69,6 +114,9 @@ export class AllMobileProductsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // Handle the submitted product data here
+        this.filteredProducts.push(result);
+        this.dataSource.data = this.filteredProducts;
+        this.updatePagedProducts();
         console.log('New product:', result);
       }
     });
@@ -82,7 +130,9 @@ export class AllMobileProductsComponent implements OnInit {
       this.http.delete(deleteUrl).subscribe(
         () => {
           // Remove the deleted product from the filtered products array
-          this.filteredProducts = this.filteredProducts.filter((product) => product.id !== productId);
+          this.filteredProducts = this.filteredProducts.filter(
+            (product) => product.id !== productId
+          );
 
           // Update the table data source
           this.dataSource.data = this.filteredProducts;
@@ -108,6 +158,8 @@ export class AllMobileProductsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<any>(this.filteredProducts);
         this.dataSource.paginator = this.paginator;
         this.updatePagedProducts();
+        console.log(this.mobileProducts);
+        
       },
       (error: any) => {
         console.error('Error fetching mobile products:', error);
@@ -149,6 +201,8 @@ export class AllMobileProductsComponent implements OnInit {
   }
 
   viewProductDetails(productId: number) {
+    // Use the updated product data as needed
+    // console.log('Updated product:', updatedProduct);
     this.http.get<any>('https://dummyjson.com/products/' + productId).subscribe(
       (response) => {
         const dialogRef = this.dialog.open(

@@ -26,6 +26,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { AddProductDialogComponent } from './add-product-dialog/add-product-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { UpdateProductDialogComponent } from './update-product-dialog/update-product-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { FormsModule } from '@angular/forms';
     // SearchSelectAddComponent,
     WordlimitpipePipe,
     ProductDetailsDialogComponentComponent,
-    AddProductDialogComponent
+    AddProductDialogComponent,
+    UpdateProductDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { FormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatTableModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AllMobileProductsComponent],
   bootstrap: [AppComponent]

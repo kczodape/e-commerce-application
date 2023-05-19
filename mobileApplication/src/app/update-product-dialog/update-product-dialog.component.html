@@ -1,0 +1,89 @@
+<h2>Update Product</h2>
+<div mat-dialog-content>
+  <form>
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        [(ngModel)]="updatedProduct.title"
+        name="title"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="updatedProduct.description"
+        name="description"
+        required
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input
+        matInput
+        [(ngModel)]="updatedProduct.price"
+        name="price"
+        type="number"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Discount Percentage</mat-label>
+      <input
+        matInput
+        [(ngModel)]="updatedProduct.discountPercentage"
+        name="discountPercentage"
+        type="number"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Rating</mat-label>
+      <input
+        matInput
+        [(ngModel)]="updatedProduct.rating"
+        name="rating"
+        type="number"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Stock</mat-label>
+      <input
+        matInput
+        [(ngModel)]="updatedProduct.stock"
+        name="stock"
+        type="number"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Brand</mat-label>
+      <input
+        matInput
+        [(ngModel)]="updatedProduct.brand"
+        name="brand"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <input
+        matInput
+        [(ngModel)]="updatedProduct.category"
+        name="category"
+        required
+      />
+    </mat-form-field>
+    <!-- Add other form fields for the remaining product properties -->
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button color="primary" (click)="updateProduct()">Update</button>
+</div>
