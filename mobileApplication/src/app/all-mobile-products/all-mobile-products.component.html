@@ -57,7 +57,7 @@
     <mat-card-actions>
       <div class="updatedelete">
         <button mat-stroked-button color="primary" class="udate">Update</button>
-        <button mat-raised-button color="warn">Delete</button>
+        <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Delete</button>
       </div>
       <div class="rupeerating">
         <p class="rupee">&#8377; {{ product.price }}</p>

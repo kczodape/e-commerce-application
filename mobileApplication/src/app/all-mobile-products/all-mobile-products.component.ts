@@ -74,6 +74,31 @@ export class AllMobileProductsComponent implements OnInit {
     });
   }
 
+  // Function to delete a product
+  deleteProduct(productId: number) {
+    if (confirm('Are you sure you want to delete this product?')) {
+      const deleteUrl = `https://dummyjson.com/products/${productId}`;
+
+      this.http.delete(deleteUrl).subscribe(
+        () => {
+          // Remove the deleted product from the filtered products array
+          this.filteredProducts = this.filteredProducts.filter((product) => product.id !== productId);
+
+          // Update the table data source
+          this.dataSource.data = this.filteredProducts;
+
+          // Update the paged products
+          this.updatePagedProducts();
+
+          console.log('Product deleted successfully.');
+        },
+        (error) => {
+          console.error('Error deleting product:', error);
+        }
+      );
+    }
+  }
+
   // For fetching all the products
   fetchMobileProducts() {
     this.http.get<any>('https://dummyjson.com/products').subscribe(
