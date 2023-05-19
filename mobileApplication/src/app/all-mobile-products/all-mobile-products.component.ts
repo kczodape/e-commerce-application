@@ -109,7 +109,7 @@ export class AllMobileProductsComponent implements OnInit {
 
   openAddProductDialog() {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
-      width: '500px',
+      width: '800px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
